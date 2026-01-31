@@ -49,7 +49,6 @@ public class Monstrum {
                 case 3 -> monstrumPhy.setPhysicsRotation(new Quaternion().fromAngles(0,100,0));
                 case 4 -> monstrumPhy.setPhysicsRotation(new Quaternion().fromAngles(0,-100,0));
             }
-            System.out.println(ranNumForDir);
         }
     }
 }
