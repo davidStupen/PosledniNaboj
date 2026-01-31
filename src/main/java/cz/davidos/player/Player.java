@@ -31,10 +31,9 @@ public class Player {
         Node player = new Node("player");
         Spatial playerObj = assetManager.loadModel("models/player.glb");
         playerObj.setName("player");
-        playerObj.setLocalScale(0.5f, 0.5f, 0.5f);
         player.attachChild(playerObj);
         cameraPlayer = new CameraNode("cam", cam);
-        cameraPlayer.setLocalTranslation(playerObj.getWorldTranslation().add(new Vector3f(0,1.5f,-1.5f)));
+        cameraPlayer.setLocalTranslation(playerObj.getWorldTranslation().add(new Vector3f(0,3f,-1.5f)));
         cameraPlayer.lookAt(playerObj.getWorldTranslation().add(new Vector3f(0,1,3)), Vector3f.UNIT_Y);
         player.attachChild(cameraPlayer);
         rootNode.attachChild(player);
