@@ -16,6 +16,7 @@ import com.jme3.scene.Spatial;
 
 public class Player {
     private RigidBodyControl playerPhy;
+    private CameraNode cameraPlayer;
     private float countShoot;
 
     public Player() {
@@ -32,8 +33,8 @@ public class Player {
         playerObj.setName("player");
         playerObj.setLocalScale(0.5f, 0.5f, 0.5f);
         player.attachChild(playerObj);
-        CameraNode cameraPlayer = new CameraNode("cam", cam);
-        cameraPlayer.setLocalTranslation(playerObj.getWorldTranslation().add(new Vector3f(0,2,-2)));
+        cameraPlayer = new CameraNode("cam", cam);
+        cameraPlayer.setLocalTranslation(playerObj.getWorldTranslation().add(new Vector3f(0,1.5f,-1.5f)));
         cameraPlayer.lookAt(playerObj.getWorldTranslation().add(new Vector3f(0,1,3)), Vector3f.UNIT_Y);
         player.attachChild(cameraPlayer);
         rootNode.attachChild(player);
@@ -50,7 +51,9 @@ public class Player {
         inputManager.addMapping("back", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("mouseLeft", new MouseAxisTrigger(0, false));
         inputManager.addMapping("mouseRight", new MouseAxisTrigger(0, true));
-        inputManager.addListener(analogListener, "forward", "back", "mouseLeft", "mouseRight");
+        inputManager.addMapping("mouseDown", new MouseAxisTrigger(1, true));
+        inputManager.addMapping("mouseUp", new MouseAxisTrigger(1, false));
+        inputManager.addListener(analogListener, "forward", "back", "mouseLeft", "mouseRight", "mouseDown", "mouseUp");
 
         inputManager.addMapping("shoot", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addListener(actionListener, "shoot");
@@ -69,6 +72,12 @@ public class Player {
         }
         if (var1.equals("mouseRight")){
             playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,0.02f,0)));
+        }
+        if (var1.equals("mouseDown")){
+            cameraPlayer.rotate(0.02f,0,0);
+        }
+        if (var1.equals("mouseUp")){
+            cameraPlayer.rotate(-0.02f,0,0);
         }
     };
     private final ActionListener actionListener = (String var1, boolean var2, float var3) -> {

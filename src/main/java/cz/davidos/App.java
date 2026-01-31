@@ -42,5 +42,8 @@ public class App extends SimpleApplication {
         light.lightPlayer(player.getPlayerPhy().getPhysicsLocation(), rootNode);
         monstrum.moveMonster(assetManager, this.bulletAppState, rootNode);
         shoot.setText(Float.toString(player.getCountShoot()));
+        if (player.getCountShoot() == 0){
+            this.stop();
+        }
     }
 }
