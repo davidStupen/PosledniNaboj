@@ -5,9 +5,8 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
-import com.jme3.input.controls.AnalogListener;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.input.MouseInput;
+import com.jme3.input.controls.*;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -20,7 +19,11 @@ public class Player {
     private float countShoot;
 
     public Player() {
-        this.countShoot = 100;
+        this.countShoot = 10;
+    }
+
+    public float getCountShoot() {
+        return countShoot;
     }
 
     public void createPlayer(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode, InputManager inputManager, Camera cam){
@@ -48,6 +51,9 @@ public class Player {
         inputManager.addMapping("mouseLeft", new MouseAxisTrigger(0, false));
         inputManager.addMapping("mouseRight", new MouseAxisTrigger(0, true));
         inputManager.addListener(analogListener, "forward", "back", "mouseLeft", "mouseRight");
+
+        inputManager.addMapping("shoot", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        inputManager.addListener(actionListener, "shoot");
     }
     private final AnalogListener analogListener = (String var1, float var2, float var3) -> {
         if (var1.equals("forward")){
@@ -65,7 +71,11 @@ public class Player {
             playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,0.02f,0)));
         }
     };
-
+    private final ActionListener actionListener = (String var1, boolean var2, float var3) -> {
+        if (var1.equals("shoot") && var2){
+            countShoot--;
+        }
+    };
     public RigidBodyControl getPlayerPhy() {
         return playerPhy;
     }
