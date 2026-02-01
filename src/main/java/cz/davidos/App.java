@@ -15,6 +15,7 @@ public class App extends SimpleApplication {
     private Player player = new Player();
     private Light light = new Light();
     private Monstrum monstrum = new Monstrum();
+    private Distence distence = new Distence(rootNode);
     private Text text = new Text();
     private BitmapText shoot;
     public static void main( String[] args ) {
@@ -29,7 +30,7 @@ public class App extends SimpleApplication {
     public void simpleInitApp() {
         renderManager.setSinglePassLightBatchSize(2);
         flyCam.setMoveSpeed(10);
-        rootNode.addLight(new DirectionalLight(new Vector3f(1,-1,1), ColorRGBA.White));
+        rootNode.addLight(new DirectionalLight(new Vector3f(1,-1,1), ColorRGBA.White.mult(0.02f)));
         this.bulletAppState.setDebugEnabled(false);
         stateManager.attach(bulletAppState);
         new Terrain().createTerrain(assetManager, this.bulletAppState, rootNode);
@@ -42,7 +43,8 @@ public class App extends SimpleApplication {
         light.lightPlayer(player.getPlayerPhy().getPhysicsLocation(), rootNode);
         monstrum.moveMonster(assetManager, this.bulletAppState, rootNode);
         shoot.setText(Float.toString(player.getCountShoot()));
-        if (player.getCountShoot() == 0){
+        distence.distenceMon();
+        if (player.getCountShoot() == -1){
             this.stop();
         }
     }

@@ -10,7 +10,7 @@ public class Light {
     private PointLight pointLight = null;
     public void lightPlayer(Vector3f posPlayer, Node rootNode){
         if (!create){
-            pointLight = new PointLight(posPlayer.add(0,2,0), ColorRGBA.White, 55);
+            pointLight = new PointLight(posPlayer.add(0,2,0), ColorRGBA.White, 25);
             rootNode.addLight(pointLight);
             create = true;
         }
