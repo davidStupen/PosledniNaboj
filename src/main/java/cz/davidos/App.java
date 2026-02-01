@@ -42,6 +42,7 @@ public class App extends SimpleApplication {
         warming = text.warming(guiFont, assetManager, settings, guiNode, distence.getContWarming());
         backgroundMusic.initAudio(assetManager);
         effectSound.loadEffects(assetManager);
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cz.davidos.player;
 
+import com.jme3.anim.AnimComposer;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -96,6 +97,9 @@ public class Player {
             Vector3f dir = cameraPlayer.getWorldRotation().mult(Vector3f.UNIT_Z);
             boolean realShoot = shoot.classicShoot(assetManager, rootNode, bulletAppState, dir, playerPhy);
             if (realShoot){
+                Node player = (Node) rootNode.getChild("player");
+                AnimComposer animComposer = ((Node)player).getChild("animation_loading").getControl(AnimComposer.class);
+                animComposer.setCurrentAction("loading", "Default", false);
                 countShoot--;
                 effectSound.playShoot();
             }
