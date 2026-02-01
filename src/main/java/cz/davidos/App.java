@@ -12,11 +12,11 @@ import cz.davidos.player.Player;
 
 public class App extends SimpleApplication {
     private BulletAppState bulletAppState = new BulletAppState();
-    private Player player = new Player();
     private Light light = new Light();
     private Monstrum monstrum = new Monstrum();
     private BackgroundMusic backgroundMusic = new BackgroundMusic(rootNode);
     private EffectSound effectSound = new EffectSound(rootNode);
+    private Player player = new Player(effectSound);
     private Distence distence = new Distence(rootNode, effectSound);
     private Text text = new Text();
     private BitmapText shoot;
