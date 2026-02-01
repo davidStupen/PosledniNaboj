@@ -28,7 +28,7 @@ public class BackgroundMusic {
         second = new AudioNode(assetManager, "sound/background/backgroun-melody2.wav");
         second.setPositional(false);
         second.setLooping(false);
-        second.setVolume(0.1f);
+        second.setVolume(0.01f);
         rootNode.attachChild(second);
 
         third = new AudioNode(assetManager, "sound/background/background-melody3.wav");

@@ -17,13 +17,13 @@ public class EffectSound {
         warming = new AudioNode(assetManager, "sound/Effeck/warming.wav");
         warming.setPositional(false);
         warming.setLooping(false);
-        warming.setVolume(1);
+        warming.setVolume(0.3f);
         rootNode.attachChild(warming);
 
         shoot = new AudioNode(assetManager, "sound/Effeck/gun.wav");
         shoot.setPositional(false);
         shoot.setLooping(false);
-        shoot.setVolume(1);
+        shoot.setVolume(0.2f);
         rootNode.attachChild(shoot);
     }
     public void playWarming(){
