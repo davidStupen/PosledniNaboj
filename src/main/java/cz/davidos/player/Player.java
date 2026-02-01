@@ -92,11 +92,13 @@ public class Player {
         }
     };
     private final ActionListener actionListener = (String var1, boolean var2, float var3) -> {
-        if (var1.equals("shoot") && var2){
-            countShoot--;
-            effectSound.playShoot();
+        if (var1.equals("shoot") && !var2){
             Vector3f dir = cameraPlayer.getWorldRotation().mult(Vector3f.UNIT_Z);
-            shoot.classicShoot(assetManager, rootNode, bulletAppState, dir, playerPhy);
+            boolean realShoot = shoot.classicShoot(assetManager, rootNode, bulletAppState, dir, playerPhy);
+            if (realShoot){
+                countShoot--;
+                effectSound.playShoot();
+            }
         }
     };
     public RigidBodyControl getPlayerPhy() {
