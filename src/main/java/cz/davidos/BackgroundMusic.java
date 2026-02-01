@@ -19,19 +19,19 @@ public class BackgroundMusic {
     }
 
     public void initAudio(AssetManager assetManager){
-        first = new AudioNode(assetManager, "sound/background-melody1.wav");
+        first = new AudioNode(assetManager, "sound/background/background-melody1.wav");
         first.setPositional(false);
         first.setLooping(false);
         first.setVolume(0.4f);
         rootNode.attachChild(first);
 
-        second = new AudioNode(assetManager, "sound/backgroun-melody2.wav");
+        second = new AudioNode(assetManager, "sound/background/backgroun-melody2.wav");
         second.setPositional(false);
         second.setLooping(false);
         second.setVolume(0.1f);
         rootNode.attachChild(second);
 
-        third = new AudioNode(assetManager, "sound/background-melody3.wav");
+        third = new AudioNode(assetManager, "sound/background/background-melody3.wav");
         third.setPositional(false);
         third.setLooping(false);
         third.setVolume(0.2f);

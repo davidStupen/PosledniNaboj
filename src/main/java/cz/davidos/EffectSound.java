@@ -1,0 +1,25 @@
+package cz.davidos;
+
+import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioNode;
+import com.jme3.scene.Node;
+
+public class EffectSound {
+    private AudioNode warming;
+
+    private Node rootNode;
+
+    public EffectSound(Node rootNode) {
+        this.rootNode = rootNode;
+    }
+    public void loadEffects(AssetManager assetManager){
+        warming = new AudioNode(assetManager, "sound/Effeck/warming.wav");
+        warming.setPositional(false);
+        warming.setLooping(false);
+        warming.setVolume(1);
+        rootNode.attachChild(warming);
+    }
+    public void playWarming(){
+        warming.playInstance();
+    }
+}

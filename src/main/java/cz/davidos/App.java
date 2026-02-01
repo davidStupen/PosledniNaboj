@@ -15,8 +15,9 @@ public class App extends SimpleApplication {
     private Player player = new Player();
     private Light light = new Light();
     private Monstrum monstrum = new Monstrum();
-    private Distence distence = new Distence(rootNode);
     private BackgroundMusic backgroundMusic = new BackgroundMusic(rootNode);
+    private EffectSound effectSound = new EffectSound(rootNode);
+    private Distence distence = new Distence(rootNode, effectSound);
     private Text text = new Text();
     private BitmapText shoot;
     private BitmapText warming;
@@ -40,6 +41,7 @@ public class App extends SimpleApplication {
         shoot = text.shoot(guiFont, assetManager, settings, guiNode, player.getCountShoot());
         warming = text.warming(guiFont, assetManager, settings, guiNode, distence.getContWarming());
         backgroundMusic.initAudio(assetManager);
+        effectSound.loadEffects(assetManager);
     }
 
     @Override
