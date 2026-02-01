@@ -16,6 +16,7 @@ public class App extends SimpleApplication {
     private Light light = new Light();
     private Monstrum monstrum = new Monstrum();
     private Distence distence = new Distence(rootNode);
+    private BackgroundMusic backgroundMusic = new BackgroundMusic(rootNode);
     private Text text = new Text();
     private BitmapText shoot;
     private BitmapText warming;
@@ -38,6 +39,7 @@ public class App extends SimpleApplication {
         player.createPlayer(assetManager, this.bulletAppState, rootNode, inputManager, cam);
         shoot = text.shoot(guiFont, assetManager, settings, guiNode, player.getCountShoot());
         warming = text.warming(guiFont, assetManager, settings, guiNode, distence.getContWarming());
+        backgroundMusic.initAudio(assetManager);
     }
 
     @Override
@@ -47,6 +49,7 @@ public class App extends SimpleApplication {
         shoot.setText(Float.toString(player.getCountShoot()));
         distence.distenceMon();
         warming.setText(Integer.toString(distence.getContWarming()));
+        backgroundMusic.playBackgroundAudio();
         if (player.getCountShoot() == -1){
             this.stop();
         }
