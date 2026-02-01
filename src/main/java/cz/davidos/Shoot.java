@@ -11,6 +11,7 @@ import com.jme3.scene.Spatial;
 public class Shoot {
     public void classicShoot(AssetManager assetManager, Node rootNode, BulletAppState bulletAppState, Vector3f dir, RigidBodyControl playerPhy){
         Spatial geometry = assetManager.loadModel("models/naboj.glb");
+        geometry.setName("shoot");
         rootNode.attachChild(geometry);
         RigidBodyControl shootPhy = new RigidBodyControl(0.5f);
         geometry.addControl(shootPhy);
