@@ -18,6 +18,7 @@ public class App extends SimpleApplication {
     private Distence distence = new Distence(rootNode);
     private Text text = new Text();
     private BitmapText shoot;
+    private BitmapText warming;
     public static void main( String[] args ) {
         App app = new App();
         AppSettings settings1 = new AppSettings(true);
@@ -30,12 +31,13 @@ public class App extends SimpleApplication {
     public void simpleInitApp() {
         renderManager.setSinglePassLightBatchSize(2);
         flyCam.setMoveSpeed(10);
-        rootNode.addLight(new DirectionalLight(new Vector3f(1,-1,1), ColorRGBA.White.mult(0.02f)));
+        rootNode.addLight(new DirectionalLight(new Vector3f(1,-1,1), ColorRGBA.White));
         this.bulletAppState.setDebugEnabled(false);
         stateManager.attach(bulletAppState);
         new Terrain().createTerrain(assetManager, this.bulletAppState, rootNode);
         player.createPlayer(assetManager, this.bulletAppState, rootNode, inputManager, cam);
         shoot = text.shoot(guiFont, assetManager, settings, guiNode, player.getCountShoot());
+        warming = text.warming(guiFont, assetManager, settings, guiNode, distence.getContWarming());
     }
 
     @Override
@@ -44,6 +46,7 @@ public class App extends SimpleApplication {
         monstrum.moveMonster(assetManager, this.bulletAppState, rootNode);
         shoot.setText(Float.toString(player.getCountShoot()));
         distence.distenceMon();
+        warming.setText(Integer.toString(distence.getContWarming()));
         if (player.getCountShoot() == -1){
             this.stop();
         }

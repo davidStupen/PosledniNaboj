@@ -18,4 +18,14 @@ public class Text {
         guiNode.attachChild(countSHoot);
         return countSHoot;
     }
+    public BitmapText warming(BitmapFont guiFont, AssetManager assetManager, AppSettings settings, Node guiNode, int warming){
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        BitmapText countWarming = new BitmapText(guiFont);
+        countWarming.setText(Integer.toString(warming));
+        countWarming.setColor(ColorRGBA.White);
+        countWarming.setLocalTranslation(25, settings.getHeight() - 50, 0);
+        countWarming.setSize(55);
+        guiNode.attachChild(countWarming);
+        return countWarming;
+    }
 }
