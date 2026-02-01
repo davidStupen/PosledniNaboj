@@ -13,12 +13,17 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import cz.davidos.Shoot;
 
 public class Player {
     private RigidBodyControl playerPhy;
+    private Shoot shoot = new Shoot();
     private CameraNode cameraPlayer;
     private float countShoot;
 
+    private AssetManager assetManager;
+    private Node rootNode;
+    private BulletAppState bulletAppState;
     public Player() {
         this.countShoot = 10;
     }
@@ -28,6 +33,9 @@ public class Player {
     }
 
     public void createPlayer(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode, InputManager inputManager, Camera cam){
+        this.assetManager = assetManager;
+        this.rootNode = rootNode;
+        this.bulletAppState = bulletAppState;
         Node player = new Node("player");
         Spatial playerObj = assetManager.loadModel("models/player.glb");
         playerObj.setName("player");
@@ -82,6 +90,8 @@ public class Player {
     private final ActionListener actionListener = (String var1, boolean var2, float var3) -> {
         if (var1.equals("shoot") && var2){
             countShoot--;
+            Vector3f dir = cameraPlayer.getWorldRotation().mult(Vector3f.UNIT_Z);
+            shoot.classicShoot(assetManager, rootNode, bulletAppState, dir, playerPhy);
         }
     };
     public RigidBodyControl getPlayerPhy() {
