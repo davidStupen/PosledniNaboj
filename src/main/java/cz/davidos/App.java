@@ -2,15 +2,18 @@ package cz.davidos;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.font.BitmapText;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import cz.davidos.models.maps.Terrain;
 import cz.davidos.player.Player;
 
-public class App extends SimpleApplication {
+public class App extends SimpleApplication implements PhysicsCollisionListener {
     private BulletAppState bulletAppState = new BulletAppState();
     private Light light = new Light();
     private Monstrum monstrum = new Monstrum();
@@ -36,13 +39,13 @@ public class App extends SimpleApplication {
         rootNode.addLight(new DirectionalLight(new Vector3f(1,-1,1), ColorRGBA.White));
         this.bulletAppState.setDebugEnabled(false);
         stateManager.attach(bulletAppState);
+        bulletAppState.getPhysicsSpace().addCollisionListener(this);
         new Terrain().createTerrain(assetManager, this.bulletAppState, rootNode);
         player.createPlayer(assetManager, this.bulletAppState, rootNode, inputManager, cam);
         shoot = text.shoot(guiFont, assetManager, settings, guiNode, player.getCountShoot());
         warming = text.warming(guiFont, assetManager, settings, guiNode, distence.getContWarming());
         backgroundMusic.initAudio(assetManager);
         effectSound.loadEffects(assetManager);
-
     }
 
     @Override
@@ -55,6 +58,23 @@ public class App extends SimpleApplication {
         backgroundMusic.playBackgroundAudio();
         if (player.getCountShoot() == -1){
             this.stop();
+        }
+    }
+
+    @Override
+    public void collision(PhysicsCollisionEvent physicsCollisionEvent) {
+        Spatial a = physicsCollisionEvent.getNodeA();
+        Spatial b = physicsCollisionEvent.getNodeB();
+        if (b.getName().equals("terrain") && a.getName().equals("shoot")){
+            bulletAppState.getPhysicsSpace().remove(a);
+            a.removeFromParent();
+        }
+        if (b.getName().equals("monstrum") && a.getName().equals("shoot")){
+            player.setCountShoot(player.getCountShoot());
+            bulletAppState.getPhysicsSpace().remove(a);
+            a.removeFromParent();
+            bulletAppState.getPhysicsSpace().remove(b);
+            b.removeFromParent();
         }
     }
 }

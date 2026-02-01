@@ -14,6 +14,9 @@ public class Distence {
     }
 
     public void distenceMon(){
+        if (rootNode.getChild("monstrum") == null){
+            return;
+        }
         if (rootNode.getChild("player").getLocalTranslation().distance(rootNode.getChild("monstrum").getLocalTranslation()) < 60){
             long now = System.currentTimeMillis();
             if (priviousTime < now - 6000){

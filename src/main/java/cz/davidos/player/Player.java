@@ -37,6 +37,10 @@ public class Player {
         return countShoot;
     }
 
+    public void setCountShoot(float countShoot) {
+        this.countShoot = countShoot + 2;
+    }
+
     public void createPlayer(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode, InputManager inputManager, Camera cam){
         this.assetManager = assetManager;
         this.rootNode = rootNode;

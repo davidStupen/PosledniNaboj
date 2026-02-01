@@ -10,6 +10,7 @@ import com.jme3.scene.Spatial;
 public class Terrain {
     public void createTerrain(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode){
         Spatial terrain = assetManager.loadModel("models/simpleWorld.glb");
+        terrain.setName("terrain");
         rootNode.attachChild(terrain);
         RigidBodyControl terrainPhy = new RigidBodyControl(0);
         terrain.addControl(terrainPhy);
