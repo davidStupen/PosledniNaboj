@@ -22,6 +22,7 @@ public class Player {
     private Shoot shoot = new Shoot();
     private CameraNode cameraPlayer;
     private float countShoot;
+    private boolean preciseAiming = false;
     private EffectSound effectSound;
 
     private AssetManager assetManager;
@@ -72,7 +73,8 @@ public class Player {
         inputManager.addListener(analogListener, "forward", "back", "mouseLeft", "mouseRight", "mouseDown", "mouseUp");
 
         inputManager.addMapping("shoot", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-        inputManager.addListener(actionListener, "shoot");
+        inputManager.addMapping("preciseAiming", new KeyTrigger(KeyInput.KEY_P));
+        inputManager.addListener(actionListener, "shoot", "preciseAiming");
     }
     private final AnalogListener analogListener = (String var1, float var2, float var3) -> {
         if (var1.equals("forward")){
@@ -84,16 +86,32 @@ public class Player {
             playerPhy.applyCentralForce(dir.mult(-10));
         }
         if (var1.equals("mouseLeft")){
-            playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,-0.02f, 0)));
+            if (preciseAiming){
+                playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,-0.002f, 0)));
+            } else {
+                playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,-0.02f, 0)));
+            }
         }
         if (var1.equals("mouseRight")){
-            playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,0.02f,0)));
+            if (preciseAiming){
+                playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,0.002f, 0)));
+            } else {
+                playerPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(0,0.02f, 0)));
+            }
         }
         if (var1.equals("mouseDown")){
-            cameraPlayer.rotate(0.02f,0,0);
+            if (preciseAiming){
+                cameraPlayer.rotate(0.002f,0,0);
+            } else {
+                cameraPlayer.rotate(0.02f,0,0);
+            }
         }
         if (var1.equals("mouseUp")){
-            cameraPlayer.rotate(-0.02f,0,0);
+            if (preciseAiming){
+                cameraPlayer.rotate(-0.002f,0,0);
+            } else {
+                cameraPlayer.rotate(-0.02f,0,0);
+            }
         }
     };
     private final ActionListener actionListener = (String var1, boolean var2, float var3) -> {
@@ -106,6 +124,13 @@ public class Player {
                 animComposer.setCurrentAction("loading", "Default", false);
                 countShoot--;
                 effectSound.playShoot();
+            }
+        }
+        if (var1.equals("preciseAiming") && !var2){
+            if (preciseAiming){
+                preciseAiming = false;
+            } else {
+                preciseAiming = true;
             }
         }
     };

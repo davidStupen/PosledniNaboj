@@ -22,7 +22,7 @@ public class Shoot {
             shootPhy.setPhysicsLocation(playerPhy.getPhysicsLocation().add(new Vector3f(0,1f,1.5f)));
             shootPhy.setLinearVelocity(dir.mult(25));
             bulletAppState.getPhysicsSpace().add(shootPhy);
-            shootPhy.setGravity(new Vector3f(0,-10,0));
+            shootPhy.setGravity(new Vector3f(0,-5,0));
             shootPhy.setCcdMotionThreshold(0.001f);
             shootPhy.setCcdSweptSphereRadius(0.5f);
             shootPhy.setPhysicsRotation(playerPhy.getPhysicsRotation().mult(new Quaternion().fromAngles(dir.getX(), dir.getY() - 30, dir.getY())));
