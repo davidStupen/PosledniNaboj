@@ -9,13 +9,13 @@ import com.jme3.scene.Spatial;
 
 public class Terrain {
     public void createTerrain(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode){
-        Spatial terrain = assetManager.loadModel("models/simpleWorld.glb");
+        Spatial terrain = assetManager.loadModel("models/testWorld.glb");
         terrain.setName("terrain");
         rootNode.attachChild(terrain);
         RigidBodyControl terrainPhy = new RigidBodyControl(0);
         terrain.addControl(terrainPhy);
         bulletAppState.getPhysicsSpace().add(terrainPhy);
-        terrainPhy.setPhysicsLocation(new Vector3f(0,-5,0));
+        terrainPhy.setPhysicsLocation(new Vector3f(0,-55,0));
     }
 
 }
