@@ -27,7 +27,7 @@ public class Monstrum {
         monstrumPhy = new RigidBodyControl(1);
         geometry.addControl(monstrumPhy);
         bulletAppState.getPhysicsSpace().add(monstrumPhy);
-        monstrumPhy.setPhysicsLocation(new Vector3f(0,10,0));
+        monstrumPhy.setPhysicsLocation(new Vector3f(-150,10,0));
     }
     public void moveMonster(AssetManager assetManager, BulletAppState bulletAppState, Node rootNode){
         if (!createMonstrum){
@@ -38,14 +38,20 @@ public class Monstrum {
         if (privious < now - 500){
             privious = now;
             int ranNumForDir = (int) (Math.random() * 4) + 1;
+            int countCycle = 0;
             while (ranNumForDir == priviousRanNum){
-                ranNumForDir = (int) (Math.random() * 4) + 1;
+                countCycle++;
+                if (countCycle % 2 == 0 || countCycle % 3 == 0){
+                    ranNumForDir = (int) (Math.random() * 2) + 1;
+                } else {
+                    ranNumForDir = (int) (Math.random() * 4) + 1;
+                }
             }
             priviousRanNum = ranNumForDir;
             Vector3f dir = monstrumPhy.getPhysicsRotation().mult(Vector3f.UNIT_Z);
             switch (ranNumForDir){
-                case 1 -> monstrumPhy.applyCentralForce(dir.mult(300));
-                case 2 -> monstrumPhy.applyCentralForce(dir.mult(-300));
+                case 1 -> monstrumPhy.applyCentralForce(dir.mult(350));
+                case 2 -> monstrumPhy.applyCentralForce(dir.mult(-350));
                 case 3 -> monstrumPhy.setPhysicsRotation(new Quaternion().fromAngles(0,100,0));
                 case 4 -> monstrumPhy.setPhysicsRotation(new Quaternion().fromAngles(0,-100,0));
             }
